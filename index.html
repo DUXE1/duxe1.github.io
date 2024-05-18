@@ -2,190 +2,232 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkout</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<style>
-    body {
-        font-family: 'Roboto', sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-    }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <style>
+       /* Base CSS */
+       /* Reset CSS */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
 
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 90vw;
+    margin: 5vw auto;
+    background-color: #fff;
+    padding: 5vw;
+    border-radius: 4vw;
+    box-shadow: 0 0 2vw rgba(0, 0, 0, 0.1);
+}
+
+.product-image img {
+    width: 128px; /* Set the width to your desired size */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.card {
+    margin-top: 20px; /* Add margin to create space between the form and the card */
+    width: auto; /* Let the card width adjust based on content */
+    padding: 4vw;
+    background-color: #ffffff;
+    border-radius: 4vw;
+    box-shadow: 0 1vw 2vw rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 2vw 4vw rgba(0, 0, 0, 0.2);
+}
+
+/* Media Queries for Mobile Devices */
+@media only screen and (min-width: 380px) and (max-width: 480px) and (min-height: 730px) and (max-height: 850px) {
+    /* Adjustments for mobile devices */
     .container {
-        display: flex;
-        flex-direction: column;
         max-width: 90vw;
-        margin: 5vw auto;
-        background-color: #fff;
-        padding: 5vw;
-        border-radius: 4vw;
-        box-shadow: 0 0 2vw rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-        text-align: center;
-    }
-
-    .product-image img {
-        width: 128px;
-        height: auto;
-        border-radius: 8px;
-        overflow: hidden;
+        margin: 2vw auto;
+        padding: 3vw;
+        border-radius: 2vw;
     }
 
     .card {
-        margin-top: 20px;
-        width: auto;
+        width: 90vw;
         padding: 4vw;
-        background-color: #ffffff;
-        border-radius: 4vw;
+        top: 2vw;
+        right: auto;
+        left: 5vw;
         box-shadow: 0 1vw 2vw rgba(0, 0, 0, 0.1);
-        transition: box-shadow 0.3s ease-in-out;
     }
+}
 
-    .card:hover {
-        box-shadow: 0 2vw 4vw rgba(0, 0, 0, 0.2);
-    }
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
 
-    .form-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
+.form-container > div {
+    width: 48%;
+    margin-bottom: 20px;
+}
 
+.form-container .full-width {
+    width: 100%;
+}
+
+@media only screen and (max-width: 480px) {
     .form-container > div {
         width: 100%;
-        margin-bottom: 20px;
     }
+}
 
-    .form-container .full-width {
-        width: 100%;
-    }
+/* Styles for form elements */
+input[type="text"],
+input[type="email"],
+select,
+input[type="submit"],
+input[type="button"] {
+    width: 130%;
+    height: 40px;
+    padding: 10px 20px; /* Increased horizontal padding */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Increased border-radius */
+    box-sizing: border-box;
+    margin-bottom: 10px;
+     margin-left: auto; /* Center the field entries */
+    margin-right: auto; 
+     margin-bottom: 20px; /* Center the field entries */
+}
 
-    @media only screen and (max-width: 480px) {
-        .form-container > div {
-            width: 100%;
-        }
-    }
+/* Style the confirm details button */
+input[type="button"] {
+    width: 100%;
+    height: 40px;
+    padding: 10px 20px; /* Increased horizontal padding */
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 20px; /* Increased border-radius */
+    cursor: pointer;
+    margin-left: 10px; /* Added left margin */
+    margin-right: 10px;
+    align:center;/* Added right margin */
+}
 
-    input[type="text"],
-    input[type="email"],
-    select,
-    input[type="submit"],
-    input[type="button"] {
-        width: 90%;
-        padding: 10px;
-        font-size: 1em;
-        border: 1px solid #ccc;
-        border-radius: 20px;
-        box-sizing: border-box;
-        margin: 0 auto 20px auto;
-        display: block;
-    }
+/* Style the quantity selectors */
+.quantity-input {
+    width: 80px;
+    height: 40px;
+    padding: 10px 20px; /* Increased horizontal padding */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Increased border-radius */
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    margin-left: 10px; /* Added left margin */
+    margin-right: 10px; /* Added right margin */
+}
+/* Style the 'Pay here' button */
+.pay-button {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #808080; /* Grey color */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align:center;
+     font-weight: bold;
+}
 
-    .quantity-input {
-        width: 80px;
-        padding: 10px;
-        font-size: 1em;
-        border: 1px solid #ccc;
-        border-radius: 20px;
-        box-sizing: border-box;
-        margin-bottom: 10px;
-        text-align: center;
-    }
+.pay-button:not([disabled]):hover {
+    background-color: #007bff; /* Blue color */
+}
 
-    .pay-button {
-        width: 90%;
-        padding: 10px;
-        font-size: 1em;
-        background-color: #808080;
-        color: #fff;
-        border: none;
-        border-radius: 20px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        font-weight: bold;
-        margin: 0 auto;
-        display: block;
-    }
 
-    .pay-button:not([disabled]):hover {
-        background-color: #007bff;
-    }
 
-    hr {
-        border: none;
-        border-top: 1px solid #ccc;
-        margin: 20px 0;
-    }
-
-    .product-title,
-    .product-price,
-    .postage,
-    .summary-item label {
-        font-weight: bold;
-    }
-</style>
+hr {
+    margin: 3vw 0;
+}
+    </style>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16495899209"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16495899209">
+</script>
 <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'AW-16495899209');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-16495899209');
 </script>
 </head>
 <body>
 <div class="container">
     <h1>Checkout</h1>
     <div class="product-info">
-        <div class="product-image">
-            <img src="https://i.ebayimg.com/images/g/TXsAAOSw5Dtl-tGz/s-l960.jpg" alt="Product Image">
+    <div class="product-image">
+        <img src="https://i.ebayimg.com/images/g/TXsAAOSw5Dtl-tGz/s-l960.jpg" alt="Product Image">
+    </div>
+</div>
+
+        <div class="product-details">
+            <div class="product-title" style="font-weight: bold;">NUTRIBULLET 600W STARTER KIT SMOOTHIE MAKER TABLE TOP BLENDER</div>
+            <div class="product-price" style="font-weight: bold;">$82.58</div>
+            <div class="quantity-selector">
+                <label for="quantity" style="font-weight: bold;">Quantity:</label>
+                <div class="quantity-controls">
+                    <input type="number" id="quantity" name="quantity" class="quantity-input" min="1" max="10" value="1">
+                </div>
+            </div>
+
+            <div class="postage" style="font-weight: bold;" >Postage</div>
+            <div style="font-weight: bold;" >4-6 days</div>
+            <div style="font-weight: bold;" >+$5.10 shipping cost</div>
         </div>
     </div>
-    <div class="product-details">
-        <div class="product-title">NUTRIBULLET 600W STARTER KIT SMOOTHIE MAKER TABLE TOP BLENDER</div>
-        <div class="product-price">$82.58</div>
-        <div class="quantity-selector">
-            <label for="quantity">Quantity:</label>
-            <input type="number" id="quantity" name="quantity" class="quantity-input" min="1" max="10" value="1">
-        </div>
-        <div class="postage">Postage</div>
-        <div>4-6 days</div>
-    </div>
-    <hr>
+    <hr style="border: none; border-top: 1px solid #ccc; margin: 10px 0;">
     <h2>Post to</h2>
     <div class="form-container">
         <form id="checkout-form" action="https://worker-blue-wind-1446.bashirmubarak08.workers.dev/" method="post">
-            <div class="full-width">
-                <select id="country" name="country" required onchange="updateStateOptions()">
-                    <option value="">Select Country</option>
-                    <option value="US">United States</option>
-                    <option value="UK">United Kingdom</option>
-                </select>
-            </div>
-            <div>
-                <input type="text" id="address" name="address" required placeholder="Street Address">
-            </div>
-            <div class="full-width">
-                <input type="text" id="address2" name="address2" placeholder="Address Line 2 (optional)">
-            </div>
-            <div>
-                <input type="text" id="city" name="city" required placeholder="City">
-            </div>
-            <div>
-                <select id="state" name="state" required>
-                    <option value="">Select State/County</option>
-                    <!-- Options will be added dynamically based on selection -->
-                </select>
-            </div>
-            <div>
-                <input type="text" id="postcode" name="ZIPcode" required placeholder="ZIPcode">
-            </div>
-            <div class="full-width">
-                <input type="button" value="Confirm Details" onclick="confirmDetails(); submitForm();">
+    <div class="full-width">
+        <div>
+        <select id="country" name="country" required onchange="updateStateOptions()">
+            <option value="">Select Country</option>
+            <option value="US">United States</option>
+            <option value="UK">United Kingdom</option>
+        </select>
+    </div>
+    <div>
+        <input type="text" id="address" name="address" required placeholder="Street Address">
+    </div>
+    <div class="full-width">
+        <input type="text" id="address2" name="address2" placeholder="Address Line 2 (optional)">
+    </div>
+    <div>
+        <input type="text" id="city" name="city" required placeholder="City">
+    </div>
+    <div>
+        <select id="state" name="state" required>
+            <option value="">Select State/County</option>
+            <!-- Options will be added dynamically based on selection -->
+        </select>
+    </div>
+    <div>
+        <input type="text" id="postcode" name="ZIPcode" required placeholder="ZIPcode">
+    </div>
+   <div class="full-width">
+               <input type="button" value="Confirm Details" onclick="confirmDetails(); submitForm();">
             </div>
         </form>
     </div>
@@ -197,19 +239,19 @@
         <h3 class="card-title">Order Summary</h3>
         <div class="order-summary">
             <div class="summary-item">
-                <label>Item:</label> <span id="summary-item">1</span>
+                <label style="font-weight: bold;" >Item:</label> <span id="summary-item">(1)</span>
             </div>
             <div class="summary-item">
-                <label>Postage:</label> <span id="summary-postage">$5.08</span>
+                <label style="font-weight: bold;" >Postage:</label> <span id="summary-postage" style="font-weight: bold;" >$5.10</span>
             </div>
             <hr>
             <div class="summary-item">
-                <label>Order Total:</label> <span id="summary-total">$87.66</span>
+                <label style="font-weight: bold;">Order Total:</label> <span id="summary-total" style="font-weight: bold;">$87.66</span>
+            </div>
             </div>
             <button id="payButton" onclick="window.location.href ='https://www.paypal.com/ncp/payment/QAJ5AP5MP4SEN'" class="pay-button" disabled>Pay here</button>
         </div>
-    </div>
-</div>
+    
 <script>
  // Function to confirm details
 function confirmDetails() {
@@ -385,7 +427,7 @@ function updatePayButton(detailsConfirmed) {
 
         // Assuming static values for price, discount, and postage
         const pricePerItem = 82.58; // Update this price as needed
-        const postage = 5.08;
+        const postage = 5.10;
 
         // Function to calculate and update the total
         function updateTotal() {
