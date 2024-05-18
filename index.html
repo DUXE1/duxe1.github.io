@@ -56,7 +56,7 @@
     }
 
     .form-container > div {
-        width: 48%;
+        width: 100%;
         margin-bottom: 20px;
     }
 
@@ -75,13 +75,14 @@
     select,
     input[type="submit"],
     input[type="button"] {
-        width: 100%;
+        width: 90%;
         padding: 10px;
         font-size: 1em;
         border: 1px solid #ccc;
         border-radius: 20px;
         box-sizing: border-box;
-        margin-bottom: 20px;
+        margin: 0 auto 20px auto;
+        display: block;
     }
 
     .quantity-input {
@@ -96,7 +97,7 @@
     }
 
     .pay-button {
-        width: 100%;
+        width: 90%;
         padding: 10px;
         font-size: 1em;
         background-color: #808080;
@@ -106,6 +107,8 @@
         cursor: pointer;
         transition: background-color 0.3s ease;
         font-weight: bold;
+        margin: 0 auto;
+        display: block;
     }
 
     .pay-button:not([disabled]):hover {
@@ -206,6 +209,7 @@
             <button id="payButton" onclick="window.location.href ='https://www.paypal.com/ncp/payment/QAJ5AP5MP4SEN'" class="pay-button" disabled>Pay here</button>
         </div>
     </div>
+</div>
 <script>
  // Function to confirm details
 function confirmDetails() {
