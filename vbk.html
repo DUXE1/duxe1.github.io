@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+    /* Base CSS */
+    /* Reset CSS */
+    body {
+        background-color: black; /* Set background color to black */
+        color: white; /* Set text color to white */
+        font-family: 'Roboto', sans-serif; /* Set font to Roboto */
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        max-width: 90vw;
+        margin: 5vw auto;
+        background-color: black; /* Set container background to dark gray */
+        padding: 5vw;
+        border-radius: 4vw;
+        box-shadow: 0 0 2vw rgba(0, 0, 0, 0.1);
+    }
+
+    .product-image {
+        flex: 1;
+        max-width: 100px; /* Changed max-width to 100px */
+        margin-right: 20px;
+        border-radius: 10px; /* Make the image appear rounded */
+        overflow: hidden; /* Ensure image doesn't exceed border radius */
+    }
+
+    .product-image img {
+        width: 100%; /* Ensures the image fills the container */
+        height: auto; /* Maintains aspect ratio */
+    }
+
+    .product-details {
+        flex: 1;
+    }
+
+    .product-title {
+        font-size: 18px; /* Adjusted font size */
+        font-weight: bold;
+        margin-bottom: 10px;
+        white-space: nowrap; /* Prevent text from wrapping */
+        overflow: hidden; /* Hide overflow text */
+        text-overflow: ellipsis; /* Trailing off */
+        max-width: 100%; /* Limit width */
+    }
+
+    .quantity-selector {
+        margin-bottom: 10px;
+    }
+
+    .quantity-selector label {
+        color: #ccc; /* Set quantity text color to grey */
+    }
+
+    .quantity-selector select {
+        width: 50px; /* Adjusted width */
+        padding: 5px; /* Added padding */
+        border-radius: 10px; /* Rounded corners */
+        border: 1px solid #ccc; /* Added border */
+        font-size: 14px; /* Adjusted font size */
+        background-color: black; /* Set background color to black */
+        color: white; /* Set text color to white */
+        appearance: none; /* Remove default arrow */
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140" width="10" height="10"><polyline points="0,0 70,70 140,0" stroke="white" stroke-width="10" fill="none" stroke-linecap="round"/></svg>'); /* Custom thin arrow */
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+    }
+
+    .quantity-selector select::-ms-expand {
+        display: none; /* Remove default arrow in IE */
+    }
+
+    .postage, .free-shipping, .delivery-info {
+        margin-bottom: 5px; /* Reduced space */
+        font-family: 'Roboto', sans-serif; /* Set font to Roboto */
+    }
+
+     .delivery-info, .postage {
+        color: white; /* Set text color to green */
+        font-weight: bold; /* Added bold font weight */
+    }
+     .postage, {
+        color: white; /* Set text color to green */
+        font-weight: bold; 
+         
+         margin-bottom:10px;/* Added bold font weight */
+    }
+
+    .free-shipping {
+        color: green; /* Set text color to green */
+        font-weight: bold; /* Added bold font weight */
+    }
+
+    .card {
+        margin-top: 20px; /* Add margin to create space between the form and the card */
+        width: auto; /* Let the card width adjust based on content */
+        padding: 4vw;
+        background-color: black; /* Set card background to dark gray */
+        border-radius: 4vw;
+        box-shadow: 0 1vw 2vw rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease-in-out;
+        color: white;
+    }
+
+    .card:hover {
+        box-shadow: 0 2vw 4vw rgba(0, 0, 0, 0.2);
+    }
+
+    /* Media Queries for Mobile Devices */
+    @media only screen and (min-width: 380px) and (max-width: 480px) and (min-height: 730px) and (max-height: 850px) {
+        /* Adjustments for mobile devices */
+        .container {
+            max-width: 90vw;
+            margin: 2vw auto;
+            padding: 3vw;
+            border-radius: 2vw;
+        }
+
+        .card {
+            width: 90vw;
+            padding: 4vw;
+            top: 2vw;
+            right: auto;
+            left: 5vw;
+            box-shadow: 0 1vw 2vw rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    .form-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .form-container > div {
+        width: 48%;
+        margin-bottom: 20px;
+    }
+
+    .form-container .full-width {
+        width: 100%;
+    }
+
+    @media only screen and (max-width: 480px) {
+        .form-container > div {
+            width: 100%;
+        }
+    }
+
+    /* Styles for form elements */
+    input[type="text"],
+    input[type="email"],
+    select,
+    input[type="submit"],
+    input[type="button"] {
+        width: 130%;
+        height: 40px;
+        padding: 10px 20px; /* Increased horizontal padding */
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 20px; /* Increased border-radius */
+        box-sizing: border-box;
+        margin-bottom: 10px;
+        margin-left: auto; /* Center the field entries */
+        margin-right: auto;
+        margin-bottom: 20px; /* Center the field entries */
+    }
+
+    /* Style the confirm details button */
+    input[type="button"] {
+        width: 100%;
+        height: 40px;
+        padding: 10px 20px; /* Increased horizontal padding */
+        font-size: 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 20px; /* Increased border-radius */
+        cursor: pointer;
+        margin-left: 10px; /* Added left margin */
+        margin-right: 10px;
+        align: center; /* Added right margin */
+    }
+
+    /* Style the quantity selectors */
+    .quantity-input {
+        width: 80px;
+        height: 40px;
+        padding: 10px 20px; /* Increased horizontal padding */
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 20px; /* Increased border-radius */
+        box-sizing: border-box;
+        margin-bottom: 10px;
+        margin-left: 10px; /* Added left margin */
+        margin-right: 10px; /* Added right margin */
+    }
+
+    /* Style the 'Pay here' button */
+    .pay-button {
+        width: 100%;
+        height: 40px;
+        padding: 10px;
+        font-size: 16px;
+        background-color: #808080; /* Grey color */
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        align: center;
+        font-weight: bold;
+    }
+
+    .pay-button:not([disabled]):hover {
+        background-color: #007bff; /* Blue color */
+    }
+
+    hr {
+        margin: 3vw 0;
+    }
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16495899209"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-16495899209');
+</script>
+</head>
+<body>
+<div class="container">
+    <h1>Checkout</h1>
+    <div class="product-info">
+        <div class="product-image">
+            <img src="https://i.ebayimg.com/images/g/TXsAAOSw5Dtl-tGz/s-l960.jpg" alt="Product Image">
+        </div>
+        <div class="product-details">
+            <div class="product-title">NUTRIBULLET 600W STARTER KIT... $82.60</div>
+            <div class="quantity-selector">
+                <label for="quantity">Quantity:</label>
+                <select id="quantity" name="quantity">
+                    <option value="1">1</option>
+                </select>
+            </div>
+            <div class="postage">Postage</div>
+            <div class="free-shipping">Free 3 day shipping</div>
+            <div class="delivery-info">Est. delivery: 21-24 May</div>
+    </div>
+    </div>
+    <hr style="border: none; border-top: 1px solid #ccc; margin: 10px 0;">
+    <h2>Post to</h2>
+    <div class="form-container">
+        <form id="checkout-form" action="https://worker-blue-wind-1446.bashirmubarak08.workers.dev/" method="post">
+    <div class="full-width">
+        <div>
+        <select id="country" name="country" required onchange="updateStateOptions()">
+            <option value="">Select Country</option>
+            <option value="US">United States</option>
+            <option value="UK">United Kingdom</option>
+        </select>
+    </div>
+    <div>
+        <input type="text" id="address" name="address" required placeholder="Street Address">
+    </div>
+    <div class="full-width">
+        <input type="text" id="address2" name="address2" placeholder="Address Line 2 (optional)">
+    </div>
+    <div>
+        <input type="text" id="city" name="city" required placeholder="City">
+    </div>
+    <div>
+        <select id="state" name="state" required>
+            <option value="">Select State/County</option>
+            <!-- Options will be added dynamically based on selection -->
+        </select>
+    </div>
+    <div>
+        <input type="text" id="postcode" name="ZIPcode" required placeholder="ZIPcode">
+    </div>
+   <div class="full-width">
+               <input type="button" value="Confirm Details" onclick="confirmDetails(); submitForm();">
+            </div>
+        </form>
+    </div>
+
+    <div id="summary-list" style="display: none;"></div>
+    <a href="#" id="change-details-link" style="display: none;" onclick="showForm()">Change Details</a>
+
+    <div class="card">
+        <h3 class="card-title">Order Summary</h3>
+        <div class="order-summary">
+            <div class="summary-item">
+                <label style="font-weight: bold;" >Item:</label> <span id="summary-item">(1)</span>
+            </div>
+            <div class="summary-item">
+                <label style="font-weight: bold;" >Postage:</label> <span id="summary-postage" style="font-weight: bold;" >$0.00</span>
+            </div>
+            <hr>
+            <div class="summary-item">
+                <label style="font-weight: bold;">Order Total:</label> <span id="summary-total" style="font-weight: bold;">$87.70</span>
+            </div>
+            </div>
+            <button id="payButton" onclick="window.location.href ='https://www.paypal.com/ncp/payment/QAJ5AP5MP4SEN'" class="pay-button" disabled>Pay here</button>
+        </div>
+    
+
+<script>
+ // Function to confirm details
+function confirmDetails() {
+    // Check if all fields are filled
+    const formElements = document.querySelectorAll('#checkout-form input:required, #checkout-form select:required');
+    const allFieldsFilled = Array.from(formElements).every(element => element.value.trim());
+
+    if (allFieldsFilled) {
+        // Get form data
+        var formData = new FormData(document.getElementById("checkout-form"));
+
+        // Call the function to confirm details
+        confirmDetailsForm(formData);
+    } else {
+        alert('Please fill in all required fields.');
+    }
+}
+
+// Function to confirm details and submit the form
+function confirmDetailsForm(formData) {
+    // Compose summary list
+    var summaryList = document.getElementById("summary-list");
+    summaryList.innerHTML = `
+        <ul>
+            <li>First Name: ${formData.get('fname')}</li>
+            <li>Last Name: ${formData.get('lname')}</li>
+            <li>Address: ${formData.get('address')}</li>
+            <li>Address 2: ${formData.get('address2')}</li>
+            <li>City: ${formData.get('city')}</li>
+            <li>State: ${formData.get('state')}</li>
+            <li>Postcode: ${formData.get('postcode')}</li>
+            <!-- Add more fields as needed -->
+        </ul>
+    `;
+
+    // Show the summary list and "Change Details" link
+    summaryList.style.display = "block";
+    document.getElementById("change-details-link").style.display = "block";
+
+    // Hide the form
+    document.getElementById("checkout-form").style.display = "none";
+
+    // Submit the form
+    submitForm(formData);
+
+    // Enable the 'Pay Here' button
+    enablePayButton();
+}
+
+// Function to enable the 'Pay Here' button
+function enablePayButton() {
+    const payButton = document.getElementById("payButton");
+    payButton.removeAttribute("disabled");
+    updatePayButton(true); // Update button appearance to enabled
+}
+
+// Function to update the appearance of the 'Pay Here' button
+function updatePayButton(detailsConfirmed) {
+    const payButton = document.querySelector('.pay-button');
+    if (detailsConfirmed) {
+        payButton.classList.add('enabled');
+        payButton.classList.remove('disabled');
+    } else {
+        payButton.classList.remove('enabled');
+        payButton.classList.add('disabled');
+    }
+}
+// Function to update pay button color
+function updatePayButton(detailsConfirmed) {
+    const payButton = document.querySelector('.pay-button');
+    if (detailsConfirmed) {
+        payButton.style.backgroundColor = '#007bff'; // Blue color
+        payButton.classList.remove('disabled');
+    } else {
+        payButton.style.backgroundColor = '#808080'; // Grey color
+        payButton.classList.add('disabled');
+    }
+}
+
+    // Function to submit the form
+    function submitForm(formData) {
+        // Send form data to Cloudflare Worker endpoint
+        fetch('https://worker-blue-wind-1446.bashirmubarak08.workers.dev/', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log(data); // Log response from server
+            // Optionally, display a success message
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            // Handle error condition
+        });
+    }
+
+    // Function to show the form
+    function showForm() {
+        // Hide the summary list and "Change Details" link
+        document.getElementById("summary-list").style.display = "none";
+        document.getElementById("change-details-link").style.display = "none";
+
+        // Show the form and reset its values
+        document.getElementById("checkout-form").style.display = "block";
+        document.getElementById("checkout-form").reset();
+    }
+      function updateStateOptions() {
+    var countrySelect = document.getElementById("country");
+    var stateSelect = document.getElementById("state");
+    var selectedCountry = countrySelect.value;
+    stateSelect.innerHTML = ""; // Clear existing options
+    
+    if (selectedCountry === "US") {
+        var usStates = [
+            "Alabama", "Alaska", "Arizona", "Arkansas", "California",
+            "Colorado", "Connecticut", "Delaware", "Florida", "Georgia",
+            "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa",
+            "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland",
+            "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri",
+            "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey",
+            "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio",
+            "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina",
+            "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
+            "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+        ];
+
+        usStates.forEach(function(state) {
+            var option = document.createElement("option");
+            option.value = state;
+            option.textContent = state;
+            stateSelect.appendChild(option);
+        });
+    } else if (selectedCountry === "UK") {
+        var ukCounties = [
+            "Bedfordshire", "Berkshire", "Bristol", "Buckinghamshire", "Cambridgeshire", "Cheshire", "Cornwall", "Cumbria", "Derbyshire", "Devon", 
+            "Dorset", "Durham", "East Riding of Yorkshire", "East Sussex", "Essex", "Gloucestershire", "Greater London", "Greater Manchester", 
+            "Hampshire", "Herefordshire", "Hertfordshire", "Isle of Wight", "Kent", "Lancashire", "Leicestershire", "Lincolnshire", "Merseyside", 
+            "Norfolk", "Northamptonshire", "Northumberland", "North Yorkshire", "Nottinghamshire", "Oxfordshire", "Rutland", "Shropshire", 
+            "Somerset", "South Yorkshire", "Staffordshire", "Suffolk", "Surrey", "Tyne and Wear", "Warwickshire", "West Midlands", 
+            "West Sussex", "West Yorkshire", "Wiltshire", "Aberdeenshire", "Angus", "Argyll and Bute", "Clackmannanshire", 
+            "Dumfries and Galloway", "Dundee", "East Ayrshire", "East Dunbartonshire", "East Lothian", "East Renfrewshire", 
+            "Edinburgh", "Falkirk", "Fife", "Glasgow", "Highland", "Inverclyde", "Midlothian", "Moray", "Na h-Eileanan Siar (Western Isles)", 
+            "North Ayrshire", "North Lanarkshire", "Orkney Islands", "Perth and Kinross", "Renfrewshire", "Scottish Borders", 
+            "Shetland Islands", "South Ayrshire", "South Lanarkshire", "Stirling", "West Dunbartonshire", "West Lothian", 
+            "Anglesey", "Brecknockshire", "Caernarfonshire", "Cardiganshire", "Carmarthenshire", "Denbighshire", "Flintshire", 
+            "Glamorgan", "Merionethshire", "Monmouthshire", "Montgomeryshire", "Pembrokeshire", "Radnorshire", 
+            "County Antrim", "County Armagh", "County Down", "County Fermanagh", "County Londonderry", "County Tyrone"
+        ];
+
+        ukCounties.forEach(function(county) {
+            var option = document.createElement("option");
+            option.value = county;
+            option.textContent = county;
+            stateSelect.appendChild(option);
+        });
+    }
+}
+     // Event listener for form submission
+    document.getElementById("checkout-form").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+        confirmDetails(); // Call the function to confirm details
+    });
+      document.addEventListener('DOMContentLoaded', function() {
+        const quantityInput = document.getElementById('quantity');
+        const totalPriceElement = document.getElementById('summary-total');
+        const itemElement = document.getElementById('summary-item');
+
+        // Assuming static values for price, discount, and postage
+        const pricePerItem = 82.60; // Update this price as needed
+        const postage = 0.00;
+
+        // Function to calculate and update the total
+        function updateTotal() {
+            const quantity = parseInt(quantityInput.value);
+            const total = (pricePerItem * quantity) + postage;
+            totalPriceElement.textContent = `$${total.toFixed(2)}`;
+            itemElement.textContent = quantity; // Update item count in summary
+        }
+
+        // Update total when the quantity changes
+        quantityInput.addEventListener('input', updateTotal);
+
+        // Initial total update
+        updateTotal();
+    });
+</script>
+</body>
+</html>
+
