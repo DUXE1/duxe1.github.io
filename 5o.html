@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #000;
+            color: #E0E0E0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: #1E1E1E;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .brand {
+            font-size: 32px;
+            font-weight: 600;
+        }
+
+        /* Container styles */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background-color: #1E1E1E;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Product image styles */
+        .product-image {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .product-image img:hover {
+            transform: scale(1.03); /* Reduced scale effect */
+        }
+
+        .arrow-button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .left-arrow {
+            left: 10px;
+        }
+
+        .right-arrow {
+            right: 10px;
+        }
+
+        .arrow-button:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .product-image:hover .arrow-button {
+            visibility: visible;
+        }
+
+        /* Thumbnail images styles */
+        .thumbnail-images {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .thumbnail-images img {
+            width: 50px;
+            height: 50px;
+            margin: 0 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            transition: border-color 0.3s;
+        }
+
+        .thumbnail-images img.active {
+            border-color: #007bff;
+        }
+
+        /* Product details and info styles */
+        .product-info {
+            padding: 20px;
+            background-color: #1E1E1E;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: slideIn 1s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .product-info h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 24px;
+            color: #E0E0E0;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .price .original-price {
+            text-decoration: line-through;
+            margin-right: 10px;
+            color: #999;
+        }
+
+        .free-shipping-text {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .quantity-selector label {
+            margin-right: 10px;
+            color: #E0E0E0;
+            font-weight: 600;
+        }
+
+        .quantity-input {
+            width: 50px;
+            padding: 5px;
+            text-align: center;
+            background-color: #333;
+            color: #E0E0E0;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #000;
+            background-color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+            width: 320px;
+            height: 50px;
+        }
+
+        .button:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .buy-now-button {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .buy-now-button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .button:focus {
+            outline: 2px solid #333;
+        }
+
+        .button {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .button:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .red-text {
+            color: #b30000;
+            font-weight: bold;
+        }
+
+        .product-description {
+            margin-top: 20px;
+        }
+
+        .product-description h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .product-description p {
+            margin-bottom: 10px;
+        }
+
+        /* Media query for mobile devices */
+        @media only screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .product-info {
+                margin-top: 20px;
+            }
+        }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16495899209"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'AW-16495899209');
+    </script>
+</head>
+<body>
+    <header class="header">
+        <span class="brand">E-store</span>
+    </header>
+
+    <div class="container">
+        <div class="product-image">
+            <button class="arrow-button left-arrow" onclick="prevImage()">
+                &#10094;
+            </button>
+            <img src="https://i.ebayimg.com/images/g/TXsAAOSw5Dtl-tGz/s-l960.jpg" alt="Product image">
+            <button class="arrow-button right-arrow" onclick="nextImage()">
+                &#10095;
+            </button>
+            <div class="thumbnail-images" id="thumbnailImages">
+                               
+            </div>
+        </div>
+
+        <div class="product-info">
+            <h2>NUTRIBULLET 600W STARTER KIT SMOOTHIE MAKER TABLE TOP BLENDER</h2>
+            <div class="price">
+                <span class="original-price">RRP $94.30</span>
+                $65.99
+                <br>
+                Save $28.30 (30% OFF)
+            </div>
+            <div class="quantity-selector">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" class="quantity-input" min="1" max="10" value="1">
+            </div>
+            <div class="last-one red-text">Last One / 45 sold</div>
+            <div class="free-shipping-text">Free shipping</div>
+
+            <div class="button-container">
+                <button class="button buy-now-button" onclick="redirectToDivian()">Buy Now</button>
+                <button class="button">Add to Cart</button>
+            </div>
+
+            <div class="product-description">
+                <h3>About this item</h3>
+                <p>The Nutribullet blender is designed for those who want to take their health to the next level with ease and convenience. With powerful nutrient extraction capabilities, it transforms whole foods into nutritious shakes, smoothies, and more.</p>
+                <p><strong>Powerful Motor:</strong> Equipped with a high-torque power base and a 600-watt motor, the Nutribullet can effortlessly blend fruits, vegetables, nuts, seeds, and superfoods for a smooth, nutrient-rich drink.</p>
+                <p><strong>Easy to Use:</strong> Simply load your ingredients into the cup, twist on the blade, and blend your way to a healthier lifestyle. The intuitive, easy-to-use design makes it perfect for everyday use.</p>
+                <p><strong>Compact Design:</strong> The Nutribullet's compact size makes it perfect for any kitchen space. It's easy to store and quick to set up, so you can blend your favorite recipes in no time.</p>
+                <p><strong>Durable and Convenient:</strong> The cups are made from high-performance, BPA-free plastic that is both durable and dishwasher safe, ensuring convenient cleanup after use.</p>
+                <p><strong>Versatile Blending:</strong> Perfect for making smoothies, shakes, sauces, dips, and more. The Nutribullet unlocks the hidden nutrition inside the food you eat, helping you to maintain a healthy lifestyle.</p>
+                <p><strong>Includes:</strong> One 600-watt motor base, one extractor blade, one 24 oz cup, one to-go lid, and a user guide with recipes. Note that item package may vary.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function redirectToDivian() {
+            window.location.href = "https://divian.co.uk/P67m36A0&ved=0ahUKEwi4yc7PsIiGAxVYcvEDHevcDd0Q4dUDCBA&uact=5&oq.html";
+        }
+
+        function prevImage() {
+            // Add your logic for previous image
+        }
+
+        function nextImage() {
+            // Add your logic for next image
+        }
+    </script>
+</body>
+</html>
+
+
+
+   <script>
+    const imageUrls = [
+        "https://i.ebayimg.com/images/g/TXsAAOSw5Dtl-tGz/s-l960.jpg",
+        "https://i.ebayimg.com/images/g/p3YAAOSw8ctl-tGz/s-l960.jpg",
+        "https://i.ebayimg.com/images/g/wksAAOSwkXll-tGz/s-l960.jpg",
+        "https://i.ebayimg.com/images/g/VNIAAOSwOr9l-tGz/s-l960.jpg"
+    ];
+
+    let currentIndex = 0;
+    const mainImage = document.getElementById('mainImage');
+    const thumbnailImagesContainer = document.getElementById('thumbnailImages');
+
+    function displayImage(index) {
+        currentIndex = index;
+        mainImage.src = imageUrls[currentIndex];
+        populateThumbnails();
+        highlightThumbnail();
+    }
+
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % imageUrls.length;
+        displayImage(currentIndex);
+    }
+
+    function prevImage() {
+        currentIndex = (currentIndex - 1 + imageUrls.length) % imageUrls.length;
+        displayImage(currentIndex);
+    }
+
+    function populateThumbnails() {
+        thumbnailImagesContainer.innerHTML = '';
+        imageUrls.forEach((imageUrl, index) => {
+            const thumbnailImage = document.createElement('img');
+            thumbnailImage.src = imageUrl;
+            thumbnailImage.onclick = () => displayImage(index);
+            thumbnailImagesContainer.appendChild(thumbnailImage);
+        });
+    }
+
+    function highlightThumbnail() {
+        const thumbnailImages = thumbnailImagesContainer.getElementsByTagName('img');
+        for (let i = 0; i < thumbnailImages.length; i++) {
+            thumbnailImages[i].classList.remove('active');
+        }
+        thumbnailImages[currentIndex].classList.add('active');
+    }
+
+    // Call the displayImage function initially to display the first image
+    displayImage(0);
+    
+
+</script>
+</body>
+</html>
